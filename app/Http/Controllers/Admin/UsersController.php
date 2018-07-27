@@ -62,7 +62,7 @@ class UsersController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show(User $user) {
-        //
+         return view('admin.users.show', compact('user'));
     }
 
     /**

@@ -152,8 +152,12 @@ return [
         // BEN\Providers\BroadcastServiceProvider::class,
         BEN\Providers\EventServiceProvider::class,
         BEN\Providers\RouteServiceProvider::class,
+        //IDE HELPER
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
-        Kris\LaravelFormBuilder\FormBuilderServiceProvider::class
+        //FORMBUILDER
+        Kris\LaravelFormBuilder\FormBuilderServiceProvider::class,
+        //BOOTSTRAP COMPONENTS
+        Bootstrapper\BootstrapperL5ServiceProvider::class,
     ],
     /*
       |--------------------------------------------------------------------------
@@ -199,6 +203,9 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'FormBuilder' => Kris\LaravelFormBuilder\Facades\FormBuilder::class
+        
+        'FormBuilder' => Kris\LaravelFormBuilder\Facades\FormBuilder::class,
+        'Button' => Bootstrapper\Facades\Button::class,
+        'Table' => Bootstrapper\Facades\Table::class
     ],
 ];

@@ -38,7 +38,7 @@ class UsersController extends Controller {
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request) {
+    public function store() {
         $form = \FormBuilder::create(UserForm::class);
         if (!$form->isValid()) {
             return redirect()
@@ -72,7 +72,12 @@ class UsersController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit(User $user) {
-        //
+        $form = \FormBuilder::create(UserForm::class, [
+                    'url' => route('admin.users.update', $user->id),
+                    'method' => 'PUT',
+                    'model' => $user
+        ]);
+        return view('admin.users.edit', compact('form'));
     }
 
     /**
@@ -82,8 +87,22 @@ class UsersController extends Controller {
      * @param  \BEN\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user) {
-        //
+    public function update(User $user) {
+        $form = \FormBuilder::create(UserForm::class, [
+            'data' => ['id' => $user->id]
+        ]);
+
+        if (!$form->isValid()) {
+            return redirect()
+                            ->back()
+                            ->withErrors($form->getErrors())
+                            ->withInput();
+        }
+
+        $data = $form->getFieldValues();
+        $user->update($data);
+
+        return redirect()->route('admin.users.index');
     }
 
     /**

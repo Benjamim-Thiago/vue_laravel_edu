@@ -52,6 +52,7 @@ class UsersController extends Controller {
         $data['password'] = $password;
         User::create($data);
 
+        session()->flash('message', 'Usuário criado com sucesso');
         return redirect()->route('admin.users.index');
     }
 
@@ -62,7 +63,7 @@ class UsersController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show(User $user) {
-         return view('admin.users.show', compact('user'));
+        return view('admin.users.show', compact('user'));
     }
 
     /**
@@ -89,7 +90,7 @@ class UsersController extends Controller {
      */
     public function update(User $user) {
         $form = \FormBuilder::create(UserForm::class, [
-            'data' => ['id' => $user->id]
+                    'data' => ['id' => $user->id]
         ]);
 
         if (!$form->isValid()) {
@@ -102,6 +103,7 @@ class UsersController extends Controller {
         $data = $form->getFieldValues();
         $user->update($data);
 
+        session()->flash('message', 'Usuário editado com sucesso');
         return redirect()->route('admin.users.index');
     }
 
@@ -112,7 +114,9 @@ class UsersController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy(User $user) {
-        //
+        $user->delete();
+        session()->flash('message', 'Usuário excluído com sucesso');
+        return redirect()->route('admin.users.index');
     }
 
 }

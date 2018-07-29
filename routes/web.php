@@ -22,11 +22,16 @@ Route::prefix('admin')->group(function () {
         'as' => 'admin.',
         'middleware' => 'auth'
             ], function () {
-         Route::resource('users', 'UsersController');
+
+        Route::name('dashboard')->get('/dashboard', function () {
+            return "Estou no dashboard";
+        });
+
+        Route::resource('users', 'UsersController');
     });
 });
-/*Route::middleware(['auth'])->namespace('Admin')->prefix('admin')->group(function(){
-   
-});*/
+/* Route::middleware(['auth'])->namespace('Admin')->prefix('admin')->group(function(){
+
+  }); */
 
 Route::get('/home', 'HomeController@index')->name('home');

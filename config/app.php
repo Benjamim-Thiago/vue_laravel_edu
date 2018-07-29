@@ -11,7 +11,7 @@ return [
       | any other location as required by the application or its packages.
      */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'EDU'),
     /*
       |--------------------------------------------------------------------------
       | Application Environment
@@ -203,9 +203,12 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        
         'FormBuilder' => Kris\LaravelFormBuilder\Facades\FormBuilder::class,
         'Button' => Bootstrapper\Facades\Button::class,
-        'Table' => Bootstrapper\Facades\Table::class
+        'Icon' => Bootstrapper\Facades\Icon::class,
+        'Table' => Bootstrapper\Facades\Table::class,
+        'Navbar' => Bootstrapper\Facades\Navbar::class,
+        'Navigation' => Bootstrapper\Facades\Navigation::class,
+        'Alert' => Bootstrapper\Facades\Alert::class
     ],
 ];

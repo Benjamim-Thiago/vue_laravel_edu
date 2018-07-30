@@ -40,6 +40,26 @@ class LoginController extends Controller
 
     protected function credentials(Request $request)
     {
-        return $request->only($this->username(), 'password');
+        $data = $request->only($this->username(), 'password');
+        $usernameKey = $this->usernameKey();
+       // if($usernameKey != $this->username()) {
+            $data[$usernameKey] = $data[$this->username()];
+            unset($data[$this->username()]);
+       // }
+        return $data;
+    }
+
+    protected function usernameKey()
+    {
+        $email = \Request::get($this->username());
+        $validator = \Validator::make([
+            'email' => $email
+        ], ['email' => 'email']);
+        return $validator->fails() ? 'enrolment' : 'email';
+    }
+
+    public function username()
+    {
+        return 'username';
     }
 }

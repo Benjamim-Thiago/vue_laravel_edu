@@ -11,10 +11,9 @@ class CreateUserSeed extends Seeder
      */
     public function run()
     {
-        $user = factory(BEN\Models\User::class)->create([
-            'name' => 'Admin',
+        factory(BEN\Models\User::class)->create([
             'email' => 'admin@school.com',
-            'password' => bcrypt('123456')
+            'enrolment'=>100000
         ]);
     }
 }

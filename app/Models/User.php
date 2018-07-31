@@ -2,8 +2,10 @@
 
 namespace BEN\Models;
 
-use Bootstrapper\Interfaces\TableInterface;
+use BEN\Notifications\UserCreated;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Password;
+use Bootstrapper\Interfaces\TableInterface;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements TableInterface {
@@ -29,6 +31,10 @@ class User extends Authenticatable implements TableInterface {
         $user = parent::create($data+['enrolment' => str_random(6)]);
         self::assignEnrolment($user, self::ROLE_ADMIN);
         $user->save();
+        if(isset($data['send_mail'])){
+            $token = \Password::broker()->createToken($user);
+            $user->notify(new UserCreated($token));
+        }
         return $user;
     }
 

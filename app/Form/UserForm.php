@@ -11,14 +11,19 @@ class UserForm extends Form {
         $id = $this->getData('id');
         //dd($id);
         $this
-                ->add('name', 'text', [
-                    'label' => 'Nome',
-                    'rules' => 'required|max:255'
-                ])
-                ->add('email', 'email', [
-                    'label' => 'E-mail',
-                    'rules' => ['required','string','email','max:255', Rule::unique('users')->ignore($id)]
-        ]);
+            ->add('name', 'text', [
+                'label' => 'Nome',
+                'rules' => 'required|max:255'
+            ])
+            ->add('email', 'email', [
+                'label' => 'E-mail',
+                'rules' => ['required','string','email','max:255', Rule::unique('users')->ignore($id)]
+            ])
+            ->add('send_mail','checkbox', [
+                'label' => 'Enviar e-mail de boas-vindas',
+                'value' => true,
+                'checked' => false
+            ]);
     }
 
 }

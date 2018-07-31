@@ -9,6 +9,7 @@ class CreateUserSeed extends Seeder
      *
      * @return void
      */
+
     public function run()
     {
         factory(BEN\Models\User::class)->create([

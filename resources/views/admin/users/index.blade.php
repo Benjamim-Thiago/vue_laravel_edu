@@ -19,7 +19,10 @@
                 Button::link(Icon::create('folder-open'). '&nbsp;&nbsp;Ver')->asLinkTo($linkShow);
              })
         !!}
-        {!! $users->links() !!}
+        <div align="center">
+            {!! $users->links() !!}
+        </div>
+    
     </div>
 </div>   
 @endsection

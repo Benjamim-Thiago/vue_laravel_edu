@@ -38,7 +38,7 @@ class UsersController extends Controller {
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store() {
+    public function store(Request $request) {
         $form = \FormBuilder::create(UserForm::class);
         if (!$form->isValid()) {
             return redirect()
@@ -48,12 +48,24 @@ class UsersController extends Controller {
         }
 
         $data = $form->getFieldValues();
-        User::createFully($data);
+        $result = User::createFully($data);
 
         session()->flash('message', 'Usuário criado com sucesso');
-        return redirect()->route('admin.users.index');
+        $request->session()->flash('user_created', [
+            'id' => $result['user']->id,
+            'password' => $result['password']
+        ]);
+        //return redirect()->route('admin.users.index');
+        return redirect()->route('admin.users.show_details');
     }
 
+    public function showDetails()
+    {
+        $userData = session('user_created');
+        $user = User::findOrFail($userData['id']);
+        $user->password = $userData['password'];
+        return view('admin.users.show_details', compact('user'));
+    }
     /**
      * Display the specified resource.
      *

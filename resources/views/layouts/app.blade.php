@@ -12,6 +12,13 @@
 
         <!-- Styles -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <style type="text/css">
+            @media print{
+                .hidden-print {
+                    display: none;
+                }
+            }
+        </style>
     </head>
     <body>
         <div id="app">
@@ -19,32 +26,33 @@
             $navbar = Navbar::withBrand(config('app.name'), route('admin.dashboard'))->inverse();
             if(Auth::check()){                
             $arrayLinks = [
-            ['link' => route('admin.users.index'), 'title' => 'Usuários']
+            [
+                'link' => route('admin.users.index'), 'title' => 'Usuários']
             ];
 
-            $arrayLinksRight =[
-            [
-            Auth::user()->name,
-            [
-            [
-            'link' => route('logout'),
-            'title' => 'Logout',
-            'linkAttributes' => [
-            'onclick' => "event.preventDefault();document.getElementById(\"form-logout\").submit();"
-            ]
-            ]
-            ]
-            ]
+            $arrayLinksRight = [
+                    [
+                        Auth::user()->name,
+                        [
+                            [
+                                'link' => route('logout'),
+                                'title' => 'Logout',
+                                'linkAttributes' => [
+                                'onclick' => "event.preventDefault();document.getElementById(\"form-logout\").submit();"
+                            ]
+                        ]
+                    ]
+                ]
             ];
 
             $navbar->withContent(Navigation::links($arrayLinks))
             ->withContent(Navigation::links($arrayLinksRight)->right());
 
             $formLogout = FormBuilder::plain([
-            'id' => 'form-logout',
-            'url' => route('logout'),
-            'method' => 'POST',
-            'style' => 'display:none'
+                'id' => 'form-logout',
+                'url' => route('logout'),
+                'method' => 'POST',
+                'style' => 'display:none'
             ]);
             }
             @endphp
@@ -56,7 +64,7 @@
             @endif
             
             @if(Session::has('message'))
-                <div class="container">
+                <div class="container hidden-print">
                     {!! Alert::success(Session::get('message'))->close() !!}
                 </div>
             @endif

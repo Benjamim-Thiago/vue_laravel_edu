@@ -8,6 +8,9 @@
                 ::normal('Listar usuários')
                 ->appendIcon(Icon::thList())
                 ->asLinkTo(route('admin.users.index'))
+                ->addAttributes([
+                    'class' => 'hidden-print'
+                ])
         !!}
         <br/><br/>
         <table class="table table-bordered">

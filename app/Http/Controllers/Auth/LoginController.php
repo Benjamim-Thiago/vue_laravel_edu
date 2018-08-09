@@ -2,6 +2,7 @@
 
 namespace BEN\Http\Controllers\Auth;
 
+use BEN\Models\Admin;
 use Illuminate\Http\Request;
 use BEN\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -42,10 +43,9 @@ class LoginController extends Controller
     {
         $data = $request->only($this->username(), 'password');
         $usernameKey = $this->usernameKey();
-       // if($usernameKey != $this->username()) {
-            $data[$usernameKey] = $data[$this->username()];
-            unset($data[$this->username()]);
-       // }
+        //$data['userable_type'] = Admin::class;
+        $data[$usernameKey] = $data[$this->username()];
+        unset($data[$this->username()]);
         return $data;
     }
 

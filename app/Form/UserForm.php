@@ -2,8 +2,9 @@
 
 namespace BEN\Form;
 
-use Kris\LaravelFormBuilder\Form;
+use BEN\Models\User;
 use \Illuminate\Validation\Rule;
+use Kris\LaravelFormBuilder\Form;
 
 class UserForm extends Form {
 
@@ -19,11 +20,24 @@ class UserForm extends Form {
                 'label' => 'E-mail',
                 'rules' => ['required','string','email','max:255', Rule::unique('users')->ignore($id)]
             ])
+            ->add('type', 'select', [
+                'label' => 'Tipo de Usuário',
+                'choices' => roles(),
+                'rules' => 'required|in:' . implode(',', array_keys($this->roles()))
+            ])
             ->add('send_mail','checkbox', [
                 'label' => 'Enviar e-mail de boas-vindas',
                 'value' => true,
                 'checked' => false
             ]);
+    }
+
+    protected function roles(){
+        return [
+            User::ROLE_ADMIN => 'Administrador',    
+            User::ROLE_TEACHER => 'Professor',    
+            User::ROLE_STUDENT => 'Estudante'
+        ];
     }
 
 }

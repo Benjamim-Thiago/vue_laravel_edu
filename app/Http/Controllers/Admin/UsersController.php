@@ -3,7 +3,7 @@
 namespace BEN\Http\Controllers\Admin;
 
 use BEN\Models\User;
-use BEN\Form\UserForm;
+use BEN\Forms\UserForm;
 use Illuminate\Http\Request;
 use BEN\Http\Controllers\Controller;
 

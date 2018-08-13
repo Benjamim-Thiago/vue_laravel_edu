@@ -1,6 +1,6 @@
 <?php
 
-namespace BEN\Form;
+namespace BEN\Forms;
 
 use BEN\Models\User;
 use \Illuminate\Validation\Rule;
@@ -22,7 +22,7 @@ class UserForm extends Form {
             ])
             ->add('type', 'select', [
                 'label' => 'Tipo de Usuário',
-                'choices' => roles(),
+                'choices' => $this->roles(),
                 'rules' => 'required|in:' . implode(',', array_keys($this->roles()))
             ])
             ->add('send_mail','checkbox', [

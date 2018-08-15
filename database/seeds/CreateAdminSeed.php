@@ -1,6 +1,7 @@
 <?php
 
 use BEN\Models\User;
+use BEN\Models\UserProfile;
 use Illuminate\Database\Seeder;
 
 class CreateAdminSeed extends Seeder
@@ -19,6 +20,8 @@ class CreateAdminSeed extends Seeder
         ])->each(function(User $user){
             User::assignRole($user, User::ROLE_ADMIN);
            // User::assignRole($user, User::ROLE_TEACHER);
+            $profile = factory(UserProfile::class)->make();
+            $user->profile()->create($profile->toArray());
             $user->save();
         });
 

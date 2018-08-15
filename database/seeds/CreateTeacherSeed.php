@@ -1,6 +1,7 @@
 <?php
 
 use BEN\Models\User;
+use BEN\Models\UserProfile;
 use Illuminate\Database\Seeder;
 
 class CreateTeacherSeed extends Seeder
@@ -26,6 +27,8 @@ class CreateTeacherSeed extends Seeder
             {
                 User::assignRole($user, User::ROLE_TEACHER);
                 User::assignEnrolment(new User(), User::ROLE_TEACHER);
+                $profile = factory(UserProfile::class)->make();
+                $user->profile()->create($profile->toArray());
                 $user->save();
             }
         });

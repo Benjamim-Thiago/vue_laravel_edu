@@ -78,6 +78,8 @@ class ClassInformationsController extends Controller
      */
     public function edit(ClassInformation $class_information)
     {
+
+        $class_information->date_start = \Carbon\Carbon::parse($class_information->date_start)->format('Y-m-d');
         $form = \FormBuilder::create(ClassInformationForm::class, [
             'url' => route('admin.class_informations.update',['class_information' => $class_information->id]),
             'method' => 'PUT',

@@ -2,6 +2,7 @@
 
 namespace BEN\Models;
 
+use BEN\Models\Student;
 use Illuminate\Database\Eloquent\Model;
 use Bootstrapper\Interfaces\TableInterface;
 
@@ -20,6 +21,11 @@ class ClassInformation extends Model implements TableInterface
         'date_start', //Carbon wrapper \DateTime
         'date_end'
     ];
+
+    public function students()
+    {
+        return $this->belongsToMany(Student::class);
+    }
 
     /**
      * A list of headers to be used when a table is displayed

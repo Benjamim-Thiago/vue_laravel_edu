@@ -11,6 +11,13 @@ class CreateClassInformationsSeed extends Seeder
      */
     public function run()
     {
-        factory(\BEN\Models\ClassInformation::class,50)->create();
+        $students = \BEN\Models\Student::all();
+        factory(\BEN\Models\ClassInformation::class,50)
+        ->create()
+        ->each(function (\BEN\Models\ClassInformation $model) use ($students){
+            /** @var Illuminate\Support\Collection $studentsCol */
+            $studentsCol = $students->random(10);
+            $model->students()->attach($studentsCol->pluck('id'));
+        });
     }
 }

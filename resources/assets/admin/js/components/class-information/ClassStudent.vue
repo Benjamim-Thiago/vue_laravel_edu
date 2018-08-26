@@ -23,7 +23,9 @@
 </template>
 
 <script>
+    import ADMIN_CONFIG from '../../services/adminConfig';
     import store from '../../store/store';
+    import 'select2';
 
     export default {
         props: ['classInformation'],
@@ -34,6 +36,17 @@
         },
         mounted(){
             store.dispatch('classStudent/query', this.classInformation);
+
+            $("select[name=students]").select2({
+                ajax: {
+                    url: `${ADMIN_CONFIG.API_URL}/students`,
+                    dataType: 'json',
+                    delay: 250,
+                    processResults(data){
+
+                    }
+                }
+            });
         }
     }
 </script>

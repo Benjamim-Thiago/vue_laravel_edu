@@ -48,6 +48,16 @@ Route::prefix('admin')->group(function () {
         });
     });
 });
+
+Route::group([
+    'namespace' => 'Api\\',
+    'as' => 'admin.api.',
+    'middleware' => ['auth', 'can:admin'],
+    'prefix' => 'api'
+], function (){
+    Route::name('students.index')->get('students','StudentsController@index');
+});
+
 /* Route::middleware(['auth'])->namespace('Admin')->prefix('admin')->group(function(){
 
   }); */

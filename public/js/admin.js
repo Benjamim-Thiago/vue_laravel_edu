@@ -24638,15 +24638,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
     mounted: function mounted() {
-        __WEBPACK_IMPORTED_MODULE_1__store_store__["a" /* default */].dispatch('classStudent/query', this.classInformation);
-
+        __WEBPACK_IMPORTED_MODULE_1__store_store__["a" /* default */].dispatch("classStudent/query", this.classInformation);
         $("select[name=students]").select2({
             ajax: {
                 url: __WEBPACK_IMPORTED_MODULE_0__services_adminConfig__["a" /* default */].API_URL + '/students',
                 dataType: 'json',
                 delay: 250,
-                processResults: function processResults(data) {}
-            }
+                data: function data(params) {
+                    return {
+                        q: params.term
+                    };
+                },
+                processResults: function processResults(data) {
+                    return {
+                        results: data.map(function (student) {
+                            return { id: student.id, text: student.user.name };
+                        })
+                    };
+                }
+            },
+            minimumInputLength: 1
         });
     }
 });

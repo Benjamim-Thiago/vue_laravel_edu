@@ -35,17 +35,26 @@
             },
         },
         mounted(){
-            store.dispatch('classStudent/query', this.classInformation);
-
+            store.dispatch("classStudent/query",this.classInformation);
             $("select[name=students]").select2({
                 ajax: {
                     url: `${ADMIN_CONFIG.API_URL}/students`,
                     dataType: 'json',
                     delay: 250,
+                    data(params){
+                        return {
+                            q: params.term
+                        }
+                    },
                     processResults(data){
-
+                        return {
+                            results: data.map((student) => {
+                                return {id: student.id, text: student.user.name}
+                            })
+                        }
                     }
-                }
+                },
+                minimumInputLength: 1,
             });
         }
     }
